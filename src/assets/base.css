@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+  --clr-neutral-900: #171717; 
+
+  --clr-primary-10: #ffffff;
+  --clr-primary-50: #faf5ff;
+  --clr-primary-200: #e9d5ff;
+  --clr-primary-700: #7e22ce;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 600;
+  --fw-semi-bold: 700;
+}
+
+/* semantic color variables for this project */
+:root {
+  --clr-background: var(--clr-primary-10);
+  --clr-text: var(--clr-neutral-900);
+  --clr-border: var(--clr-neutral-900);
+  --clr-border-focus: var(--clr-primary-700);
+  --clr-border-hover: var(--clr-primary-700);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  color: var(--clr-text);
+  background: var(--clr-background);
+  transition: color 0.5s, background-color 0.5s;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: var(--fw-regular);
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  line-height: 1;
+}
+
+img, picture, svg, canvas, video {
+  display: block;
+  max-width: 100%;
+}
+
+input, select, textarea {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+}
