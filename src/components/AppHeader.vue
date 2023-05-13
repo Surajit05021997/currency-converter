@@ -26,7 +26,7 @@ export default {
 }
 .brand-text {
   color: var(--clr-text);
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: var(--fw-bold);
 }
 .brand-logo {
@@ -34,11 +34,11 @@ export default {
 }
 .hero-header {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 2fr 1fr;
   align-items: center;
   gap: 1rem;
 }
 .hero-header-text {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 </style>

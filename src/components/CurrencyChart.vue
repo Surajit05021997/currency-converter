@@ -33,7 +33,13 @@ export default {
   },
   methods: {
     async createChart() {
+      let rateArray = [];
+      let dateArray = [];
       const currencyRateObj = await getCurrencyRate(this.fromCurrency, this.toCurrency);
+      currencyRateObj.rateList.forEach((rateObj) => {
+        rateArray.push(rateObj.rate);
+        dateArray.push(rateObj.date);
+      });
       this.currencyChartObj ? this.currencyChartObj.destroy() : '';
       if (this.fromCurrency === 'USD' && this.toCurrency === 'INR') {
         this.currencyChartObj = new Chart(
@@ -41,11 +47,11 @@ export default {
           {
             type: 'line',
             data: {
-              labels: ['a','b','c','d', 'e'],
+              labels: dateArray,
               datasets: [
                 {
-                  label: 'Sample',
-                  data: currencyRateObj.rateList,
+                  label: 'Rate',
+                  data: rateArray,
                 },
               ],
             },
