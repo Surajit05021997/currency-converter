@@ -90,3 +90,7 @@ input, select, textarea {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.fw-700 {
+  font-weight: 700;
+}

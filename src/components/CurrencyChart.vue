@@ -1,16 +1,16 @@
 <template>
   <div class="chart-panel">
-    <div class="overlay">
-      <div class="loading-spinner" v-if="isLoading"></div>
+    <div class="overlay" v-if="isLoading">
+      <div class="loading-spinner"></div>
     </div>
     <div v-if="this.fromCurrency && this.toCurrency" class="char-title">
-      <p>{{ fromCurrency }} to {{ toCurrency }} chart</p>
+      <p class="fw-700">1 {{ fromCurrency }} to {{ toCurrency }}</p>
     </div>
     <div v-else>
       <p >Please select currency!</p>
     </div>
-    <app-notification class="my-1" type="warning">
-      <p>Currenct rate graph is available only for USD to INR!</p>
+    <app-notification v-if="showWarningNotification" class="my-1" type="warning">
+      <p>Rate graph is available only for USD to INR!</p>
     </app-notification>
     <canvas ref="currencyChart" id="currency-chart"></canvas>
   </div>
@@ -31,6 +31,7 @@ export default {
     return {
       currencyChartObj: null,
       isLoading: false,
+      showWarningNotification: false,
     }
   },
   created() {
@@ -67,6 +68,12 @@ export default {
       }
       this.isLoading = true;
       const currencyRateObj = await getCurrencyRate(this.fromCurrency, this.toCurrency);
+      
+      if(!currencyRateObj) {
+        this.showWarningNotification = true;
+      } else {
+        this.showWarningNotification = false;
+      }
 
       currencyRateObj?.rateList.forEach((rateObj) => {
         rateArray.push(rateObj.rate);
@@ -110,13 +117,18 @@ export default {
   position: relative;
 }
 .overlay {
-  background-color: var(--clr-neutral-900);
-  /* opacity: .2; */
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .loading-spinner {
-  position: absolute;
-  top: 250px;
-  bottom: 250px;
   width: 4rem;
   height: 4rem;
   border-radius: .5rem;
