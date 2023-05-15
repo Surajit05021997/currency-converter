@@ -18,6 +18,9 @@ export default {
 </script>
 
 <style scoped>
+header{
+  margin-top: 1rem;
+}
 .brand {
   text-decoration: none;
   display: flex;
@@ -25,7 +28,7 @@ export default {
   width: fit-content;
 }
 .brand-text {
-  color: var(--clr-text);
+  color: var(--clr-brand-text);
   font-size: 3rem;
   font-weight: var(--fw-bold);
 }

@@ -5,8 +5,17 @@
 
   --clr-primary-10: #ffffff;
   --clr-primary-50: #faf5ff;
+  --clr-primary-100: #f3e8ff;
   --clr-primary-200: #e9d5ff;
+  --clr-primary-600: #9333ea;
   --clr-primary-700: #7e22ce;
+
+  --clr-green-100: #dcfce7;
+  --clr-green-600: #16a34a;
+  --clr-yellow-100: #fef9c3;
+  --clr-yellow-600: #ca8a04;
+  --clr-red-100: #fee2e2;
+  --clr-red-600: #dc2626;
 
   --fw-regular: 400;
   --fw-medium: 500;
@@ -17,10 +26,18 @@
 /* semantic color variables for this project */
 :root {
   --clr-background: var(--clr-primary-10);
+  --clr-section-background: var(--clr-primary-100);
   --clr-text: var(--clr-neutral-900);
+  --clr-brand-text: var(--clr-primary-700);
   --clr-border: var(--clr-neutral-900);
   --clr-border-focus: var(--clr-primary-700);
   --clr-border-hover: var(--clr-primary-700);
+  --clr-success: var(--clr-green-100);
+  --clr-success-border: var(--clr-green-600);
+  --clr-warning: var(--clr-yellow-100);
+  --clr-warning-border: var(--clr-yellow-600);
+  --clr-error: var(--clr-red-100);
+  --clr-error-border: var(--clr-red-600);
 }
 
 *,
@@ -60,4 +77,16 @@ img, picture, svg, canvas, video {
 input, select, textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 1.25rem;
+}
+
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-inline: 2rem;
+}
+
+/* utilities */
+.my-1 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

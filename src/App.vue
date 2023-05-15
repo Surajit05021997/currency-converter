@@ -23,5 +23,10 @@ export default {
 </script>
 
 <style scoped>
-
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
 </style>

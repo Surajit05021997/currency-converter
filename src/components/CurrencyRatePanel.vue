@@ -118,6 +118,8 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  border-radius: 8px;
+  background-color: var(--clr-section-background);
 }
 .currency-selector-panel {
   display: flex;
