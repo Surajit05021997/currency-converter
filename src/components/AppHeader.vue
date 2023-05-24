@@ -36,12 +36,29 @@ header{
   width: 3.5rem;
 }
 .hero-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  flex-direction: column-reverse;
   align-items: center;
   gap: 1rem;
 }
 .hero-header-text {
+  text-align: center;
   font-size: 1.25rem;
+}
+.hero-header img {
+  width: 20rem;
+}
+@media (min-width: 768px) {
+  .hero-header {
+    flex-direction: row;
+  }
+  .hero-header-text {
+    text-align: left;
+  }
+}
+@media (min-width: 1024px) {
+  .hero-header img {
+    width: 27.5rem;
+  }
 }
 </style>

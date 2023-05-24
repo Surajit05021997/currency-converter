@@ -111,7 +111,7 @@ export default {
 
 <style scoped>
 .chart-panel {
-  padding: 2rem 10rem;
+  padding: 1rem 1rem;
   border-radius: 8px;
   background-color: var(--clr-section-background);
   position: relative;
@@ -141,5 +141,17 @@ export default {
 @keyframes loading {
   from { transform : rotate(0turn) }
   to { transform : rotate(1turn) }
+}
+
+@media (min-width: 768px) {
+  .chart-panel {
+    padding: 2rem 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chart-panel {
+    padding: 2rem 8rem;
+  }
 }
 </style>

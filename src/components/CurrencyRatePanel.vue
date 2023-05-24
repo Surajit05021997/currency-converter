@@ -114,7 +114,7 @@ export default {
 
 <style scoped>
 .currency-rate-panel {
-  padding: 5rem 10rem;
+  padding: 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -123,13 +123,18 @@ export default {
 }
 .currency-selector-panel {
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
+  flex-direction: column;
 }
 .left-panel, .right-panel {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+.currency-selector-panel img {
+  transform: rotate(90deg);
 }
 .curreny-selector {
   width: 20rem;
@@ -169,5 +174,25 @@ input:focus {
 }
 [disabled] {
   cursor: not-allowed;
+}
+@media (min-width: 768px) {
+  .currency-rate-panel {
+    padding: 2rem 4rem;
+  }
+  .currency-selector-panel {
+    gap: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .currency-rate-panel {
+    padding: 4rem 8rem;
+  }
+  .currency-selector-panel {
+    flex-direction: row;
+    gap: 0rem;
+  }
+  .currency-selector-panel img {
+    transform: rotate(0deg);
+  }
 }
 </style>
