@@ -1,5 +1,6 @@
 <template>
 <div class="currency-rate-panel">
+  <app-spinner :isLoading="isLoading" />
   <div class="currency-selector-panel">
     <div class="left-panel">
       <select class="currency-selector" v-model="fromCurrency">
@@ -36,9 +37,13 @@
 import supportedCurrency from '@/supportedCurrency.json';
 import axios from 'axios';
 import { mapActions } from 'vuex';
+import AppSpinner from './AppSpinner.vue';
 
 export default {
   name: 'CurrencyRatePanel',
+  components: {
+    AppSpinner,
+  },
   data() {
     return {
       fromCurrency: '',
@@ -47,6 +52,7 @@ export default {
       toAmount: '',
       currencySymbolList: [],
       supportedCurrency,
+      isLoading: false,
     }
   },
   created() {
@@ -56,9 +62,11 @@ export default {
     document.getElementById('from-currency').addEventListener('keyup', (event) => {
       if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
         if (this.toCurrency && this.fromAmount) {
+          this.isLoading = true;
           this.getConvertedAmount(this.fromCurrency, this.toCurrency, this.fromAmount)
             .then((response) => {
               this.toAmount = response.data.new_amount;
+              this.isLoading = false;
             });
         } else if (this.toCurrency && this.fromAmount === '') {
           this.toAmount = '';
@@ -68,9 +76,11 @@ export default {
     document.getElementById('to-currency').addEventListener('keyup', (event) => {
       if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
         if (this.fromCurrency && this.toAmount) {
+          this.isLoading = true;
           this.getConvertedAmount(this.toCurrency, this.fromCurrency, this.toAmount)
             .then((response) => {
               this.fromAmount = response.data.new_amount;
+              this.isLoading = false;
             });
         } else if (this.fromCurrency && this.toAmount === '') {
           this.fromAmount = '';
@@ -93,18 +103,22 @@ export default {
     fromCurrency() {
       this.setFromCurrency(this.fromCurrency);
       if (this.toCurrency && this.toAmount) {
+        this.isLoading = true;
         this.getConvertedAmount(this.toCurrency, this.fromCurrency, this.toAmount)
           .then((response) => {
             this.fromAmount = response.data.new_amount;
+            this.isLoading = false;
           });
       }
     },
     toCurrency() {
       this.setToCurrency(this.toCurrency);
       if (this.fromCurrency && this.fromAmount) {
+        this.isLoading = true;
         this.getConvertedAmount(this.fromCurrency, this.toCurrency, this.fromAmount)
           .then((response) => {
             this.toAmount = response.data.new_amount;
+            this.isLoading = false;
           });
       }
     }
@@ -116,6 +130,7 @@ export default {
 .currency-rate-panel {
   padding: 1rem 1rem;
   margin-top: 1rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2rem;
