@@ -29,11 +29,11 @@ header{
 }
 .brand-text {
   color: var(--clr-brand-text);
-  font-size: 3rem;
+  font-size: 2.25rem;
   font-weight: var(--fw-bold);
 }
 .brand-logo {
-  width: 3.5rem;
+  width: 2.75rem;
 }
 .hero-header {
   display: flex;
@@ -47,6 +47,14 @@ header{
 }
 .hero-header img {
   width: 20rem;
+}
+@media (min-width: 480px) {
+  .brand-logo {
+    width: 3.5rem;
+  }
+  .brand-text {
+    font-size: 3rem;
+  }
 }
 @media (min-width: 768px) {
   .hero-header {

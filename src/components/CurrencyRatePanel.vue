@@ -2,7 +2,7 @@
 <div class="currency-rate-panel">
   <div class="currency-selector-panel">
     <div class="left-panel">
-      <select class="curreny-selector" v-model="fromCurrency">
+      <select class="currency-selector" v-model="fromCurrency">
         <option disabled selected value="">Select currency</option>
         <option v-for="currencySymbol in currencySymbolList" :key="currencySymbol" :value="currencySymbol">
           {{ currencySymbol + " (" + supportedCurrency[currencySymbol] + ")" }}
@@ -16,7 +16,7 @@
     </div>
     <img src="@/assets/swap.svg" alt="">
     <div class="right-panel">
-      <select class="curreny-selector" v-model="toCurrency">
+      <select class="currency-selector" v-model="toCurrency">
         <option disabled selected value="">Select currency</option>
         <option v-for="currencySymbol in currencySymbolList" :key="currencySymbol" :value="currencySymbol">
           {{ currencySymbol + " (" + supportedCurrency[currencySymbol] + ")" }}
@@ -115,6 +115,7 @@ export default {
 <style scoped>
 .currency-rate-panel {
   padding: 1rem 1rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -125,7 +126,6 @@ export default {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  align-items: center;
   flex-direction: column;
 }
 .left-panel, .right-panel {
@@ -134,19 +134,20 @@ export default {
   gap: 1rem;
 }
 .currency-selector-panel img {
+  width: 32px;
+  align-self: center;
   transform: rotate(90deg);
 }
-.curreny-selector {
-  width: 20rem;
+.currency-selector {
   padding: .5rem;
   border: 2px solid var(--clr-border);
   border-radius: 4px;
 }
-.curreny-selector:hover {
+.currency-selector:hover {
   border: 2px solid var(--clr-border-hover);
   cursor: pointer;
 }
-.curreny-selector:focus {
+.currency-selector:focus {
   border: 2px solid var(--clr-border-focus);
 }
 option {
@@ -158,7 +159,6 @@ label {
 .from-currency-filed, .to-currency-filed {
   border: 2px solid var(--clr-border);
   border-radius: 4px;
-  width: 20rem;
   display: flex;
   padding: 0 .5rem;
 }
@@ -178,9 +178,17 @@ input:focus {
 @media (min-width: 768px) {
   .currency-rate-panel {
     padding: 2rem 4rem;
+    margin-top: 0;
   }
   .currency-selector-panel {
+    align-items: center;
     gap: 2rem;
+  }
+  .currency-selector {
+    width: 30rem;
+  }
+  .from-currency-filed, .to-currency-filed {
+    width: 30rem;
   }
 }
 @media (min-width: 1024px) {
@@ -193,6 +201,12 @@ input:focus {
   }
   .currency-selector-panel img {
     transform: rotate(0deg);
+  }
+  .currency-selector {
+    width: 20rem;
+  }
+  .from-currency-filed, .to-currency-filed {
+    width: 20rem;
   }
 }
 </style>

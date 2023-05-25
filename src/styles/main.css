@@ -82,7 +82,13 @@ input, select, textarea {
 #app {
   max-width: 1400px;
   margin: 0 auto;
-  padding-inline: 2rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  #app {
+    padding-inline: 2rem;
+  }
 }
 
 /* utilities */
