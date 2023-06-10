@@ -12,7 +12,8 @@
       <div class="from-currency-filed">
         <label for="from-currency">{{ fromCurrency }}</label>
         <input id="from-currency" type="text" placeholder="Enter amount" v-model="fromAmount"
-        :disabled="fromCurrency? false : true">
+        :disabled="fromCurrency? false : true"
+        @keyup="debounce(() => this.fromCurrencyKeyupCallback())">
       </div>
     </div>
     <img src="@/assets/swap.svg" alt="">
@@ -26,7 +27,8 @@
       <div class="to-currency-filed">
         <label for="to-currency">{{ toCurrency }}</label>
         <input id="to-currency" type="text" placeholder="Enter amount" v-model="toAmount"
-        :disabled="toCurrency? false : true">
+        :disabled="toCurrency? false : true"
+        @keyup="toCurrencyKeyupCallback">
       </div>
     </div>
   </div>
@@ -58,36 +60,6 @@ export default {
   created() {
     this.currencySymbolList = Object.keys(this.supportedCurrency);
   },
-  mounted() {
-    document.getElementById('from-currency').addEventListener('keyup', (event) => {
-      if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
-        if (this.toCurrency && this.fromAmount) {
-          this.isLoading = true;
-          this.getConvertedAmount(this.fromCurrency, this.toCurrency, this.fromAmount)
-            .then((response) => {
-              this.toAmount = response.data.new_amount;
-              this.isLoading = false;
-            });
-        } else if (this.toCurrency && this.fromAmount === '') {
-          this.toAmount = '';
-        }
-      }
-    });
-    document.getElementById('to-currency').addEventListener('keyup', (event) => {
-      if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
-        if (this.fromCurrency && this.toAmount) {
-          this.isLoading = true;
-          this.getConvertedAmount(this.toCurrency, this.fromCurrency, this.toAmount)
-            .then((response) => {
-              this.fromAmount = response.data.new_amount;
-              this.isLoading = false;
-            });
-        } else if (this.fromCurrency && this.toAmount === '') {
-          this.fromAmount = '';
-        }
-      }
-    });
-  },
   methods: {
     ...mapActions(['setFromCurrency', 'setToCurrency']),
     getConvertedAmount(have, want, amount) {
@@ -97,6 +69,40 @@ export default {
           'X-Api-Key': import.meta.env.API_KEY,
         },
       });
+    },
+    async fromCurrencyKeyupCallback(event) {
+      this.fromAmount = this.fromAmount.replace(/[^0-9]/g, '');
+      if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
+        if (this.toCurrency && this.fromAmount) {
+          this.isLoading = true;
+          const convertedAmount = await this.getConvertedAmount(this.fromCurrency, this.toCurrency, this.fromAmount)
+          this.toAmount = convertedAmount.data.new_amount;
+          this.isLoading = false;
+        } else if (this.toCurrency && this.fromAmount === '') {
+          this.toAmount = '';
+        }
+      }
+    },
+    async toCurrencyKeyupCallback(event) {
+      this.toAmount = this.toAmount.replace(/[^0-9]/g, '');
+      if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
+        if (this.fromCurrency && this.toAmount) {
+          this.isLoading = true;
+          const convertedAmount = await this.getConvertedAmount(this.toCurrency, this.fromCurrency, this.toAmount)
+          this.fromAmount = convertedAmount.data.new_amount;
+          this.isLoading = false;
+        } else if (this.fromCurrency && this.toAmount === '') {
+          this.fromAmount = '';
+        }
+      } 
+    },
+    debounce(func, timeout = 300){
+      let timer;
+      return (...args) => {
+        console.log('inside')
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
+      };
     }
   },
   watch: {
