@@ -75,10 +75,9 @@ export default {
     debounceFunc(func, delay) {
     let timer;
       return function(...args) {
-        const context = this;
         window.clearTimeout(timer);
         timer = window.setTimeout(() => {
-            func.apply(context, args);
+            func.apply(this, args);
         }, delay)
       }
     },
