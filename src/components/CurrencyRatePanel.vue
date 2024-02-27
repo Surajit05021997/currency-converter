@@ -59,7 +59,30 @@ export default {
     this.currencySymbolList = Object.keys(this.supportedCurrency);
   },
   mounted() {
-    document.getElementById('from-currency').addEventListener('keyup', (event) => {
+    document.getElementById('from-currency').addEventListener('keyup', this.debounceFunc(this.fromCurrencyHandler, 500));
+    document.getElementById('to-currency').addEventListener('keyup', this.debounceFunc(this.toCurrencyHandler, 500));
+  },
+  methods: {
+    ...mapActions(['setFromCurrency', 'setToCurrency']),
+    getConvertedAmount(have, want, amount) {
+      return axios({
+        url: `https://api.api-ninjas.com/v1/convertcurrency?have=${have}&want=${want}&amount=${amount}`,
+        headers: {
+          'X-Api-Key': 'R2/T0BuC2KKHo2SUIgwMJQ==nE12qgUv6WkK8ZBP',
+        },
+      });
+    },
+    debounceFunc(func, delay) {
+    let timer;
+      return function(...args) {
+        const context = this;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+            func.apply(context, args);
+        }, delay)
+      }
+    },
+    fromCurrencyHandler(event) {
       if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
         if (this.toCurrency && this.fromAmount) {
           this.isLoading = true;
@@ -72,8 +95,8 @@ export default {
           this.toAmount = '';
         }
       }
-    });
-    document.getElementById('to-currency').addEventListener('keyup', (event) => {
+    },
+    toCurrencyHandler(event) {
       if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'].includes(event.key)) {
         if (this.fromCurrency && this.toAmount) {
           this.isLoading = true;
@@ -86,17 +109,6 @@ export default {
           this.fromAmount = '';
         }
       }
-    });
-  },
-  methods: {
-    ...mapActions(['setFromCurrency', 'setToCurrency']),
-    getConvertedAmount(have, want, amount) {
-      return axios({
-        url: `https://api.api-ninjas.com/v1/convertcurrency?have=${have}&want=${want}&amount=${amount}`,
-        headers: {
-          'X-Api-Key': 'R2/T0BuC2KKHo2SUIgwMJQ==nE12qgUv6WkK8ZBP',
-        },
-      });
     }
   },
   watch: {

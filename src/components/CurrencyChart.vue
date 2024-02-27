@@ -8,7 +8,7 @@
       <p >Please select currency!</p>
     </div>
     <app-notification v-if="showWarningNotification" class="my-1" type="warning">
-      <p>Rate graph is available only for USD to INR!</p>
+      <p>Rate graph is not available!</p>
     </app-notification>
     <canvas ref="currencyChart" id="currency-chart"></canvas>
   </div>
@@ -75,8 +75,8 @@ export default {
         this.showWarningNotification = false;
       }
 
-      currencyRateObj?.rateList.forEach((rateObj) => {
-        rateArray.push(rateObj.rate);
+      currencyRateObj?.data?.rateList.forEach((rateObj) => {
+        rateArray.push(currencyRateObj.oppResponse ? +(1/rateObj.rate).toFixed(2) : rateObj.rate);
         dateArray.push(rateObj.date);
       });
       this.currencyChartObj ? this.currencyChartObj.destroy() : '';
