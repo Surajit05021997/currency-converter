@@ -94,7 +94,7 @@ export default {
       return axios({
         url: `https://api.api-ninjas.com/v1/convertcurrency?have=${have}&want=${want}&amount=${amount}`,
         headers: {
-          'X-Api-Key': import.meta.env.API_KEY,
+          'X-Api-Key': 'R2/T0BuC2KKHo2SUIgwMJQ==nE12qgUv6WkK8ZBP',
         },
       });
     }
